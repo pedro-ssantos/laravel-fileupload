@@ -3,6 +3,7 @@
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PacienteUploadController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('pacientes', PacienteController::class)->except([
-    'show',
-]);
-Route::get('/pacientes/import', [PacienteUploadController::class, 'index']);
-Route::post('/pacientes/import', [PacienteUploadController::class, 'store']);
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('pacientes', PacienteController::class)->except([
+    'show',
+])->middleware(['auth']);
+Route::get('/pacientes/import', [PacienteUploadController::class, 'index'])->middleware(['auth']);
+Route::post('/pacientes/import', [PacienteUploadController::class, 'store'])->middleware(['auth']);
+
+Route::get('/dashboard', function () {
+    return redirect()->route('pacientes.index');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
