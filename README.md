@@ -17,4 +17,6 @@ docker exec -it bidbox npm install
 docker exec -it bidbox php artisan key:generate
 docker exec -it bidbox php artisan migrate
 ```
-- **[Vehikl](https://vehikl.com/)**
+- **[Pacientes](localhost/pacientes)**
+
+O arquivo Txt de teste está na pasta root do projeto.
